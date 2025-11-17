@@ -1,6 +1,6 @@
 {
   "name": "@penpoint/js",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Official TypeScript/JavaScript client library for the Penpoint API",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
