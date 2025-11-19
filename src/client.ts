@@ -18,7 +18,8 @@ export class PenpointClient {
       throw new PenpointValidationError('API key is required');
     }
 
-    const baseUrl = config.baseUrl || 'https://api.penpoint.ai/v1';
+    const baseUrl = config.baseUrl || 'https://api.penpoint.ai';
+    const apiPrefix = config.apiPrefix || '/v1';
     const timeout = config.timeout || 30000;
     const maxRetries = config.maxRetries || 3;
     const userAgent = config.userAgent || `penpoint-js/${this.getVersion()}`;
@@ -30,6 +31,7 @@ export class PenpointClient {
 
     this.httpClient = new HttpClient(
       baseUrl,
+      apiPrefix,
       defaultHeaders,
       timeout,
       maxRetries

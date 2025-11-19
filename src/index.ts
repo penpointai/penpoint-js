@@ -29,6 +29,8 @@ export type {
   ReferencePart,
   ReferenceMetadata,
   PaginationParams,
+  Chunk,
+  ChunksResponse,
 } from './types';
 
 // Error classes

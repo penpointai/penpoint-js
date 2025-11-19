@@ -52,6 +52,7 @@ export interface FileUploadRequest {
   file: File | Buffer | string;
   filename: string;
   summary?: string;
+  mimeType?: string;
 }
 
 export interface FileUpdateRequest {
@@ -71,9 +72,30 @@ export interface PaginationParams {
   offset?: number;
 }
 
+export interface Chunk {
+  id: number;
+  document_id: number;
+  metadata: Record<string, any>;
+  segment: string;
+  page_number: number;
+  chunk_number: number;
+  created_at: string;
+}
+
+export interface ChunksResponse {
+  chunks: Chunk[];
+  pagination: {
+    limit: number;
+    offset: number;
+    total: number;
+    hasMore: boolean;
+  };
+}
+
 export interface ClientConfig {
   apiKey: string;
   baseUrl?: string;
+  apiPrefix?: string;
   timeout?: number;
   maxRetries?: number;
   userAgent?: string;

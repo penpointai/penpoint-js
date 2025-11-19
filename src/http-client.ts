@@ -6,17 +6,20 @@ import type { RequestOptions, ApiResponse, ApiError } from './types';
 
 export class HttpClient {
   private readonly baseUrl: string;
+  private readonly apiPrefix: string;
   private readonly defaultHeaders: Record<string, string>;
   private readonly defaultTimeout: number;
   private readonly maxRetries: number;
 
   constructor(
     baseUrl: string,
+    apiPrefix: string,
     defaultHeaders: Record<string, string> = {},
     defaultTimeout = 30000,
     maxRetries = 3
   ) {
     this.baseUrl = baseUrl.replace(/\/$/, '');
+    this.apiPrefix = apiPrefix.replace(/\/$/, '');
     this.defaultHeaders = defaultHeaders;
     this.defaultTimeout = defaultTimeout;
     this.maxRetries = maxRetries;
@@ -81,7 +84,7 @@ export class HttpClient {
       query?: Record<string, string | number | boolean>;
     } = {}
   ): Promise<ApiResponse<T>> {
-    const url = new URL(endpoint, this.baseUrl);
+    const url = new URL(this.apiPrefix + endpoint, this.baseUrl);
 
     // Add query parameters
     if (options.query) {
@@ -126,19 +129,19 @@ export class HttpClient {
       throw error;
     }
 
-    let data: T;
-    try {
-      data = (await response.json()) as T;
-    } catch {
-      // If response is not JSON, try to get text
-      const text = await response.text();
-      data = text as T;
-    }
-
     const responseHeaders: Record<string, string> = {};
     response.headers.forEach((value, key) => {
       responseHeaders[key] = value;
     });
+
+    let data: T;
+    // if content-type is application/json, parse as json
+    if (response.headers.get('content-type')?.includes('application/json')) {
+      data = (await response.json()) as T;
+    } else {
+      const arrayBuffer = await response.arrayBuffer();
+      data = arrayBuffer as T;
+    }
 
     return {
       data,
