@@ -18,10 +18,7 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: npm install --ignore-scripts
-
-      - name: Ensure rollup linux binary exists
-        run: npm install --no-save @rollup/rollup-linux-x64-gnu
+        run: npm install --include=optional --package-lock=false
 
       - name: Build and validate package
         run: npm run clean && npm run build && npm test && npm run lint
