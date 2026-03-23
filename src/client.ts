@@ -47,7 +47,7 @@ export class PenpointClient {
   private getVersion(): string {
     try {
       // This will be replaced during build
-      return '0.1.0';
+      return '0.1.5';
     } catch {
       return 'unknown';
     }
