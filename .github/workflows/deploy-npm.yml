@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Ensure rollup linux binary exists
+        run: npm install --no-save @rollup/rollup-linux-x64-gnu
+
       - name: Build and validate package
         run: npm run clean && npm run build && npm test && npm run lint
 
