@@ -48,5 +48,8 @@ jobs:
           node-version: "20"
           registry-url: "https://registry.npmjs.org"
 
+      - name: Debug OIDC claims
+        uses: github/actions-oidc-debugger@v1
+
       - name: Publish to npm
-        run: npm publish *.tgz --access public
+        run: npm publish *.tgz --access public --provenance
