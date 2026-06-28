@@ -385,6 +385,7 @@
   "paths": {
     "/v1/ai/completions": {
       "post": {
+        "operationId": "post_v1_ai_completions",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -394,6 +395,7 @@
     },
     "/v1/ai/completions/rag": {
       "post": {
+        "operationId": "post_v1_ai_completions_rag",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -403,6 +405,7 @@
     },
     "/v1/alive": {
       "get": {
+        "operationId": "get_v1_alive",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -412,6 +415,7 @@
     },
     "/v1/api-keys": {
       "get": {
+        "operationId": "get_v1_api_keys",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -419,6 +423,7 @@
         }
       },
       "post": {
+        "operationId": "post_v1_api_keys",
         "requestBody": {
           "content": {
             "application/json": {
@@ -444,6 +449,7 @@
     },
     "/v1/api-keys/{id}": {
       "delete": {
+        "operationId": "delete_v1_api_keys_id",
         "parameters": [
           {
             "in": "path",
@@ -465,6 +471,7 @@
     },
     "/v1/auth/google": {
       "get": {
+        "operationId": "get_v1_auth_google",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -474,6 +481,7 @@
     },
     "/v1/auth/google/callback": {
       "get": {
+        "operationId": "get_v1_auth_google_callback",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -483,6 +491,7 @@
     },
     "/v1/check-email": {
       "post": {
+        "operationId": "post_v1_check_email",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -492,6 +501,7 @@
     },
     "/v1/check-password": {
       "post": {
+        "operationId": "post_v1_check_password",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -501,6 +511,7 @@
     },
     "/v1/company/category/multi": {
       "post": {
+        "operationId": "post_v1_company_category_multi",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -510,6 +521,7 @@
     },
     "/v1/company/category/single": {
       "post": {
+        "operationId": "post_v1_company_category_single",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -519,6 +531,7 @@
     },
     "/v1/company/discovery": {
       "post": {
+        "operationId": "post_v1_company_discovery",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -528,6 +541,7 @@
     },
     "/v1/company/people": {
       "get": {
+        "operationId": "get_v1_company_people",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -537,6 +551,7 @@
     },
     "/v1/company/{id}": {
       "get": {
+        "operationId": "get_v1_company_id",
         "parameters": [
           {
             "in": "path",
@@ -556,6 +571,7 @@
     },
     "/v1/discrete-references/{effortMode}": {
       "post": {
+        "operationId": "post_v1_discrete_references_effortMode",
         "parameters": [
           {
             "in": "path",
@@ -702,6 +718,7 @@
     },
     "/v1/discrete-references/{effortMode}/audit-bundle": {
       "post": {
+        "operationId": "post_v1_discrete_references_effortMode_audit_bundle",
         "parameters": [
           {
             "in": "path",
@@ -784,6 +801,7 @@
     },
     "/v1/files": {
       "get": {
+        "operationId": "get_v1_files",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -791,6 +809,7 @@
         }
       },
       "post": {
+        "operationId": "post_v1_files",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -800,6 +819,7 @@
     },
     "/v1/files/extensions": {
       "get": {
+        "operationId": "get_v1_files_extensions",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -809,6 +829,7 @@
     },
     "/v1/files/upload-sse": {
       "post": {
+        "operationId": "post_v1_files_upload_sse",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -818,6 +839,7 @@
     },
     "/v1/files/{id}": {
       "delete": {
+        "operationId": "delete_v1_files_id",
         "parameters": [
           {
             "in": "path",
@@ -835,6 +857,7 @@
         }
       },
       "get": {
+        "operationId": "get_v1_files_id",
         "parameters": [
           {
             "in": "path",
@@ -852,6 +875,7 @@
         }
       },
       "put": {
+        "operationId": "put_v1_files_id",
         "parameters": [
           {
             "in": "path",
@@ -871,6 +895,7 @@
     },
     "/v1/files/{id}/chunks": {
       "get": {
+        "operationId": "get_v1_files_id_chunks",
         "parameters": [
           {
             "in": "path",
@@ -890,6 +915,7 @@
     },
     "/v1/flexible-auth": {
       "get": {
+        "operationId": "get_v1_flexible_auth",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -899,6 +925,7 @@
     },
     "/v1/health/sse": {
       "post": {
+        "operationId": "post_v1_health_sse",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -908,6 +935,7 @@
     },
     "/v1/keys": {
       "get": {
+        "operationId": "get_v1_keys",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -915,6 +943,7 @@
         }
       },
       "post": {
+        "operationId": "post_v1_keys",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -924,6 +953,7 @@
     },
     "/v1/keys/{id}": {
       "put": {
+        "operationId": "put_v1_keys_id",
         "parameters": [
           {
             "in": "path",
@@ -943,6 +973,7 @@
     },
     "/v1/login": {
       "post": {
+        "operationId": "post_v1_login",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -952,6 +983,7 @@
     },
     "/v1/logout": {
       "post": {
+        "operationId": "post_v1_logout",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -961,6 +993,7 @@
     },
     "/v1/models": {
       "get": {
+        "operationId": "get_v1_models",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -970,6 +1003,7 @@
     },
     "/v1/models/prices": {
       "get": {
+        "operationId": "get_v1_models_prices",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -979,6 +1013,7 @@
     },
     "/v1/openapi.json": {
       "get": {
+        "operationId": "get_v1_openapi_json",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -988,6 +1023,7 @@
     },
     "/v1/prices": {
       "get": {
+        "operationId": "get_v1_prices",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -997,6 +1033,7 @@
     },
     "/v1/profile": {
       "get": {
+        "operationId": "get_v1_profile",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1004,6 +1041,7 @@
         }
       },
       "put": {
+        "operationId": "put_v1_profile",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1013,6 +1051,7 @@
     },
     "/v1/protected": {
       "get": {
+        "operationId": "get_v1_protected",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1022,6 +1061,7 @@
     },
     "/v1/register": {
       "post": {
+        "operationId": "post_v1_register",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1074,6 +1114,7 @@
     },
     "/v1/reports/{id}": {
       "delete": {
+        "operationId": "delete_v1_reports_id",
         "parameters": [
           {
             "in": "path",
@@ -1091,6 +1132,7 @@
         }
       },
       "get": {
+        "operationId": "get_v1_reports_id",
         "parameters": [
           {
             "in": "path",
@@ -1108,6 +1150,7 @@
         }
       },
       "put": {
+        "operationId": "put_v1_reports_id",
         "parameters": [
           {
             "in": "path",
@@ -1127,6 +1170,7 @@
     },
     "/v1/reports/{id}/items/{itemId}": {
       "put": {
+        "operationId": "put_v1_reports_id_items_itemId",
         "parameters": [
           {
             "in": "path",
@@ -1154,6 +1198,7 @@
     },
     "/v1/reports/{id}/items/{itemId}/assignments": {
       "put": {
+        "operationId": "put_v1_reports_id_items_itemId_assignments",
         "parameters": [
           {
             "in": "path",
@@ -1181,6 +1226,7 @@
     },
     "/v1/reset-password": {
       "post": {
+        "operationId": "post_v1_reset_password",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1190,6 +1236,7 @@
     },
     "/v1/reset-password/{token}/{userId}": {
       "post": {
+        "operationId": "post_v1_reset_password_token_userId",
         "parameters": [
           {
             "in": "path",
@@ -1217,6 +1264,7 @@
     },
     "/v1/stripe/cancel": {
       "get": {
+        "operationId": "get_v1_stripe_cancel",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1226,6 +1274,7 @@
     },
     "/v1/stripe/payment-method": {
       "post": {
+        "operationId": "post_v1_stripe_payment_method",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1235,6 +1284,7 @@
     },
     "/v1/stripe/payment-method/{id}": {
       "delete": {
+        "operationId": "delete_v1_stripe_payment_method_id",
         "parameters": [
           {
             "in": "path",
@@ -1252,6 +1302,7 @@
         }
       },
       "put": {
+        "operationId": "put_v1_stripe_payment_method_id",
         "parameters": [
           {
             "in": "path",
@@ -1271,6 +1322,7 @@
     },
     "/v1/stripe/setup-intent": {
       "post": {
+        "operationId": "post_v1_stripe_setup_intent",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1280,6 +1332,7 @@
     },
     "/v1/stripe/success": {
       "get": {
+        "operationId": "get_v1_stripe_success",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1289,6 +1342,7 @@
     },
     "/v1/stripe/test": {
       "get": {
+        "operationId": "get_v1_stripe_test",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1298,6 +1352,7 @@
     },
     "/v1/stripe/topup": {
       "post": {
+        "operationId": "post_v1_stripe_topup",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1307,6 +1362,7 @@
     },
     "/v1/stripe/transactions/{id}/receipt": {
       "get": {
+        "operationId": "get_v1_stripe_transactions_id_receipt",
         "parameters": [
           {
             "in": "path",
@@ -1326,6 +1382,7 @@
     },
     "/v1/stripe/webhook": {
       "post": {
+        "operationId": "post_v1_stripe_webhook",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1335,6 +1392,7 @@
     },
     "/v1/test-api-key": {
       "get": {
+        "operationId": "get_v1_test_api_key",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1344,6 +1402,7 @@
     },
     "/v1/todo": {
       "post": {
+        "operationId": "post_v1_todo",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1353,6 +1412,7 @@
     },
     "/v1/transactions": {
       "get": {
+        "operationId": "get_v1_transactions",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1362,6 +1422,7 @@
     },
     "/v1/use": {
       "get": {
+        "operationId": "get_v1_use",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1371,6 +1432,7 @@
     },
     "/v1/verify": {
       "post": {
+        "operationId": "post_v1_verify",
         "responses": {
           "200": {
             "description": "Default Response"
@@ -1380,6 +1442,7 @@
     },
     "/v1/verify/{token}/{userId}": {
       "get": {
+        "operationId": "get_v1_verify_token_userId",
         "parameters": [
           {
             "in": "path",
@@ -1407,6 +1470,7 @@
     },
     "/v1/{companyId}/reports": {
       "get": {
+        "operationId": "get_v1_companyId_reports",
         "parameters": [
           {
             "in": "path",
