@@ -27,30 +27,18 @@ export interface ReferencePart {
 /**
  * Canonical, versioned, cross-modal reference contract (`penpoint.ref/1`).
  *
- * The API returns these on `DiscreteReferenceResponse.references` alongside the
- * legacy `refs.parts`. Prefer `references` in new code — it's a stable, typed
- * contract with a single discriminated `locator` per modality, instead of the
- * loose per-modality `metadata` bag on `ReferencePart`. Mirror of the backend's
- * `lib/ai/discreteReferences/canonical.ts`; bump the version on breaking changes.
+ * These types are now GENERATED from the backend's OpenAPI export (F6/D9) —
+ * `src/generated/schema.d.ts`, regenerate with `yarn generate`. They are no
+ * longer hand-maintained; the backend's Zod `canonical.ts` is the single source
+ * of truth. The API returns them on `DiscreteReferenceResponse.references`
+ * alongside the legacy `refs.parts`; prefer `references` in new code.
  */
+import type { components } from './generated/schema';
+
 export const PENPOINT_REF_SCHEMA_VERSION = 'penpoint.ref/1' as const;
 
-export type ReferenceLocator =
-  | { type: 'pdf' | 'image'; page: number | null; bbox: [number, number, number, number] | null }
-  | { type: 'tabular'; row: number | null }
-  | { type: 'audio'; startTime: number | null; endTime: number | null }
-  | { type: 'text'; position: number | null };
-
-export interface CanonicalReference {
-  /** Stable id for the cited span. */
-  id: string;
-  /** The cited text content. */
-  segment: string;
-  /** Confidence in [0,1], or null if unavailable. */
-  confidence: number | null;
-  /** Where the span lives in the source, normalized per modality. */
-  locator: ReferenceLocator;
-}
+export type ReferenceLocator = components['schemas']['ReferenceLocator'];
+export type CanonicalReference = components['schemas']['CanonicalReference'];
 
 export interface DiscreteReferenceResponse {
   /** Legacy reference shape — still emitted for back-compat. */

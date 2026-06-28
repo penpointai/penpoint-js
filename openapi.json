@@ -1,0 +1,1428 @@
+{
+  "components": {
+    "schemas": {
+      "CanonicalReference": {
+        "additionalProperties": false,
+        "description": "A single citation in the penpoint.ref/1 contract.",
+        "properties": {
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Confidence in [0,1] that this is the right span, or null."
+          },
+          "id": {
+            "description": "Stable id for the cited span.",
+            "type": "string"
+          },
+          "locator": {
+            "$ref": "#/components/schemas/ReferenceLocator"
+          },
+          "segment": {
+            "description": "The cited text content.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "segment",
+          "confidence",
+          "locator"
+        ],
+        "type": "object"
+      },
+      "CanonicalReferenceInput": {
+        "description": "A single citation in the penpoint.ref/1 contract.",
+        "properties": {
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Confidence in [0,1] that this is the right span, or null."
+          },
+          "id": {
+            "description": "Stable id for the cited span.",
+            "type": "string"
+          },
+          "locator": {
+            "$ref": "#/components/schemas/ReferenceLocatorInput"
+          },
+          "segment": {
+            "description": "The cited text content.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "segment",
+          "confidence",
+          "locator"
+        ],
+        "type": "object"
+      },
+      "ReferenceLocator": {
+        "anyOf": [
+          {
+            "additionalProperties": false,
+            "description": "Spatial document locator (PDF/image).",
+            "properties": {
+              "bbox": {
+                "anyOf": [
+                  {
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Fractional [x, y, w, h]."
+              },
+              "page": {
+                "anyOf": [
+                  {
+                    "maximum": 9007199254740991,
+                    "minimum": -9007199254740991,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "1-indexed page."
+              },
+              "type": {
+                "enum": [
+                  "pdf",
+                  "image"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "page",
+              "bbox"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "description": "Tabular locator.",
+            "properties": {
+              "row": {
+                "anyOf": [
+                  {
+                    "maximum": 9007199254740991,
+                    "minimum": -9007199254740991,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "1-indexed source row (header = row 1)."
+              },
+              "type": {
+                "const": "tabular",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "row"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "description": "Audio time-range locator.",
+            "properties": {
+              "endTime": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Seconds."
+              },
+              "startTime": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Seconds."
+              },
+              "type": {
+                "const": "audio",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "startTime",
+              "endTime"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "description": "Plain-text / markdown locator.",
+            "properties": {
+              "position": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Vertical position as a fraction (0..1)."
+              },
+              "type": {
+                "const": "text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "position"
+            ],
+            "type": "object"
+          }
+        ],
+        "description": "Where a reference lives in the source, normalized per modality."
+      },
+      "ReferenceLocatorInput": {
+        "anyOf": [
+          {
+            "description": "Spatial document locator (PDF/image).",
+            "properties": {
+              "bbox": {
+                "anyOf": [
+                  {
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Fractional [x, y, w, h]."
+              },
+              "page": {
+                "anyOf": [
+                  {
+                    "maximum": 9007199254740991,
+                    "minimum": -9007199254740991,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "1-indexed page."
+              },
+              "type": {
+                "enum": [
+                  "pdf",
+                  "image"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "page",
+              "bbox"
+            ],
+            "type": "object"
+          },
+          {
+            "description": "Tabular locator.",
+            "properties": {
+              "row": {
+                "anyOf": [
+                  {
+                    "maximum": 9007199254740991,
+                    "minimum": -9007199254740991,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "1-indexed source row (header = row 1)."
+              },
+              "type": {
+                "const": "tabular",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "row"
+            ],
+            "type": "object"
+          },
+          {
+            "description": "Audio time-range locator.",
+            "properties": {
+              "endTime": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Seconds."
+              },
+              "startTime": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Seconds."
+              },
+              "type": {
+                "const": "audio",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "startTime",
+              "endTime"
+            ],
+            "type": "object"
+          },
+          {
+            "description": "Plain-text / markdown locator.",
+            "properties": {
+              "position": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Vertical position as a fraction (0..1)."
+              },
+              "type": {
+                "const": "text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "position"
+            ],
+            "type": "object"
+          }
+        ],
+        "description": "Where a reference lives in the source, normalized per modality."
+      }
+    }
+  },
+  "info": {
+    "description": "Penpoint discrete-references API. References follow the penpoint.ref/1 contract.",
+    "title": "Penpoint API",
+    "version": "v1"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/v1/ai/completions": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/ai/completions/rag": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/alive": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/api-keys": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "label": {
+                    "maxLength": 255,
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/api-keys/{id}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/auth/google": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/auth/google/callback": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/check-email": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/check-password": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/company/category/multi": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/company/category/single": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/company/discovery": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/company/people": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/company/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/discrete-references/{effortMode}": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "effortMode",
+            "required": true,
+            "schema": {
+              "enum": [
+                "basic",
+                "standard",
+                "advanced"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "alpha": {
+                    "description": "Hybrid search weight (0=keyword, 1=vector).",
+                    "type": "number"
+                  },
+                  "fileExpiresAt": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "fileId": {
+                    "description": "ID of the file to get references from.",
+                    "type": "number"
+                  },
+                  "limit": {
+                    "description": "Max references to return.",
+                    "type": "number"
+                  },
+                  "markupColor": {
+                    "description": "Hex color for marked-up output.",
+                    "type": "string"
+                  },
+                  "markupFile": {
+                    "description": "Also return a marked-up copy.",
+                    "type": "boolean"
+                  },
+                  "model": {
+                    "description": "Model for the standard/advanced reranker.",
+                    "type": "string"
+                  },
+                  "prompt": {
+                    "description": "The topic/question to find references for.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "fileId",
+                  "prompt"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {},
+                  "properties": {
+                    "abstained": {
+                      "type": "boolean"
+                    },
+                    "cached": {
+                      "type": "boolean"
+                    },
+                    "chargedCost": {
+                      "type": "number"
+                    },
+                    "chargedCostBreakdown": {
+                      "additionalProperties": {},
+                      "properties": {
+                        "llm": {
+                          "type": "number"
+                        },
+                        "query": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "query",
+                        "llm"
+                      ],
+                      "type": "object"
+                    },
+                    "document": {},
+                    "newFileId": {
+                      "type": "number"
+                    },
+                    "references": {
+                      "items": {
+                        "$ref": "#/components/schemas/CanonicalReference"
+                      },
+                      "type": "array"
+                    },
+                    "refs": {
+                      "additionalProperties": {},
+                      "properties": {
+                        "parts": {
+                          "items": {},
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "parts"
+                      ],
+                      "type": "object"
+                    },
+                    "schemaVersion": {
+                      "enum": [
+                        "penpoint.ref/1"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Default Response"
+          }
+        },
+        "summary": "Find discrete references in a file for a topic/question.",
+        "tags": [
+          "discrete-references"
+        ]
+      }
+    },
+    "/v1/discrete-references/{effortMode}/audit-bundle": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "effortMode",
+            "required": true,
+            "schema": {
+              "enum": [
+                "basic",
+                "standard",
+                "advanced"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "alpha": {
+                    "description": "Hybrid search weight (0=keyword, 1=vector).",
+                    "type": "number"
+                  },
+                  "fileExpiresAt": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "fileId": {
+                    "description": "ID of the file to get references from.",
+                    "type": "number"
+                  },
+                  "limit": {
+                    "description": "Max references to return.",
+                    "type": "number"
+                  },
+                  "markupColor": {
+                    "description": "Hex color for marked-up output.",
+                    "type": "string"
+                  },
+                  "markupFile": {
+                    "description": "Also return a marked-up copy.",
+                    "type": "boolean"
+                  },
+                  "model": {
+                    "description": "Model for the standard/advanced reranker.",
+                    "type": "string"
+                  },
+                  "prompt": {
+                    "description": "The topic/question to find references for.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "fileId",
+                  "prompt"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        },
+        "summary": "Download a reproducible audit bundle (ZIP) for one query.",
+        "tags": [
+          "discrete-references"
+        ]
+      }
+    },
+    "/v1/files": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/files/extensions": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/files/upload-sse": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/files/{id}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/files/{id}/chunks": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/flexible-auth": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/health/sse": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/keys": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/keys/{id}": {
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/login": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/logout": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/models": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/models/prices": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/openapi.json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/prices": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/profile": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/protected": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/register": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "format": "email",
+                    "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
+                    "type": "string"
+                  },
+                  "firstname": {
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "jobTitle": {
+                    "default": "",
+                    "maxLength": 255,
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "password": {
+                    "maxLength": 512,
+                    "minLength": 12,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "firstname",
+                  "lastname",
+                  "password"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/reports/{id}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/reports/{id}/items/{itemId}": {
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/reports/{id}/items/{itemId}/assignments": {
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/reset-password": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/reset-password/{token}/{userId}": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/stripe/cancel": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/stripe/payment-method": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/stripe/payment-method/{id}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/stripe/setup-intent": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/stripe/success": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/stripe/test": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/stripe/topup": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/stripe/transactions/{id}/receipt": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/stripe/webhook": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/test-api-key": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/todo": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/transactions": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/use": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/verify": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/verify/{token}/{userId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/{companyId}/reports": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "companyId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    }
+  }
+}

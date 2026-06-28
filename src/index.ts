@@ -14,6 +14,11 @@ export { DiscreteReferencesResource } from './resources/discrete-references';
 // HTTP client
 export { HttpClient } from './http-client';
 
+// Generated typed client over all routes (OpenAPI-derived, F6/D9)
+export { createPenpointClient } from './generated-client';
+export type { GeneratedClientConfig } from './generated-client';
+export type { paths, components, operations } from './generated/schema';
+
 // Canonical reference contract (penpoint.ref/1)
 export { PENPOINT_REF_SCHEMA_VERSION } from './types';
 export {
