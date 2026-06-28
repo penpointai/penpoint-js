@@ -14,6 +14,15 @@ export { DiscreteReferencesResource } from './resources/discrete-references';
 // HTTP client
 export { HttpClient } from './http-client';
 
+// Canonical reference contract (penpoint.ref/1)
+export { PENPOINT_REF_SCHEMA_VERSION } from './types';
+export {
+  getReferences,
+  normalizeReferences,
+  locatorFromPart,
+  inferModality,
+} from './references';
+
 // Types and interfaces
 export type {
   ClientConfig,
@@ -28,6 +37,8 @@ export type {
   DiscreteReferenceResponse,
   ReferencePart,
   ReferenceMetadata,
+  ReferenceLocator,
+  CanonicalReference,
   PaginationParams,
   Chunk,
   ChunksResponse,

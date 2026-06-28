@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://penpoint.ai/schemas/penpoint.ref.v1.json",
+  "title": "penpoint.ref/1",
+  "description": "Canonical, versioned, cross-modal reference contract returned by Penpoint discrete-references endpoints. Emitted alongside the legacy `refs.parts` for back-compat; prefer `references`.",
+  "type": "object",
+  "required": ["schemaVersion", "abstained", "references"],
+  "properties": {
+    "schemaVersion": { "const": "penpoint.ref/1" },
+    "abstained": {
+      "type": "boolean",
+      "description": "True when the document contains nothing relevant to the prompt (honest 'not found')."
+    },
+    "references": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/reference" }
+    }
+  },
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "required": ["id", "segment", "confidence", "locator"],
+      "properties": {
+        "id": { "type": "string", "description": "Stable id for the cited span." },
+        "segment": { "type": "string", "description": "The cited text content." },
+        "confidence": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Confidence the span is the right one, or null if unavailable."
+        },
+        "locator": { "$ref": "#/$defs/locator" }
+      }
+    },
+    "locator": {
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "Spatial document — page (1-indexed) + fractional bbox [x,y,w,h].",
+          "required": ["type", "page", "bbox"],
+          "properties": {
+            "type": { "enum": ["pdf", "image"] },
+            "page": { "type": ["integer", "null"] },
+            "bbox": {
+              "type": ["array", "null"],
+              "items": { "type": "number" },
+              "minItems": 4,
+              "maxItems": 4
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Tabular — 1-indexed source row (header = row 1).",
+          "required": ["type", "row"],
+          "properties": {
+            "type": { "const": "tabular" },
+            "row": { "type": ["integer", "null"] }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Audio — time range in seconds.",
+          "required": ["type", "startTime", "endTime"],
+          "properties": {
+            "type": { "const": "audio" },
+            "startTime": { "type": ["number", "null"] },
+            "endTime": { "type": ["number", "null"] }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Plain text / markdown — vertical position as a fraction.",
+          "required": ["type", "position"],
+          "properties": {
+            "type": { "const": "text" },
+            "position": { "type": ["number", "null"] }
+          }
+        }
+      ]
+    }
+  }
+}
