@@ -23,7 +23,7 @@ export interface GeneratedClientConfig {
 }
 
 export function createPenpointClient(
-  config: GeneratedClientConfig,
+  config: GeneratedClientConfig
 ): Client<paths> {
   return createClient<paths>({
     baseUrl: config.baseUrl ?? 'https://api.penpoint.ai',

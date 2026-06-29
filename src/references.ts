@@ -26,14 +26,15 @@ type LocatorType = ReferenceLocator['type'];
 export function inferModality(part: ReferencePart): LocatorType {
   const m = (part.metadata ?? {}) as unknown as Record<string, unknown>;
   if (typeof m.sourceRow === 'number') return 'tabular';
-  if (typeof m.start_time === 'number' || typeof m.startTime === 'number') return 'audio';
+  if (typeof m.start_time === 'number' || typeof m.startTime === 'number')
+    return 'audio';
   if (typeof m.x === 'number') return 'pdf';
   return 'text';
 }
 
 export function locatorFromPart(
   part: ReferencePart,
-  type: LocatorType = inferModality(part),
+  type: LocatorType = inferModality(part)
 ): ReferenceLocator {
   const m = (part.metadata ?? {}) as unknown as Record<string, unknown>;
   switch (type) {
@@ -68,7 +69,9 @@ export function locatorFromPart(
 }
 
 /** Derive canonical references from the legacy `refs.parts` shape. */
-export function normalizeReferences(parts: ReferencePart[]): CanonicalReference[] {
+export function normalizeReferences(
+  parts: ReferencePart[]
+): CanonicalReference[] {
   return (parts ?? []).map((p, i) => {
     const partId = (p as { partId?: string | number }).partId;
     const confidence = (p as { confidence?: number }).confidence;
@@ -86,7 +89,7 @@ export function normalizeReferences(parts: ReferencePart[]): CanonicalReference[
  * `references` (penpoint.ref/1); falls back to deriving from `refs.parts`.
  */
 export function getReferences(
-  response: DiscreteReferenceResponse,
+  response: DiscreteReferenceResponse
 ): CanonicalReference[] {
   if (response.references) return response.references;
   return normalizeReferences(response.refs?.parts ?? []);

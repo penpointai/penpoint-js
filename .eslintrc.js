@@ -26,6 +26,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  // Tells ESLint to ignore build output and node_modules
-  ignorePatterns: ['dist/', 'node_modules/', '.eslintrc.js'],
+  // Tells ESLint to ignore build output, node_modules, and generated SDK code
+  // (src/generated/* is emitted by openapi-typescript and is not hand-formatted).
+  ignorePatterns: ['dist/', 'node_modules/', '.eslintrc.js', 'src/generated/'],
 };
